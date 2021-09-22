@@ -184,9 +184,9 @@ fi
 
 export HOMEBREW_BUNDLE_FILE="~/Brewfile"
 brewfile() {
-        echo "Saving Brewfile to $HOMEBREW_BUNDLE_FILE..."
-        brew bundle dump --force
-        echo "Done."
+    echo "Saving Brewfile to $HOMEBREW_BUNDLE_FILE..."
+    brew bundle dump --force
+    echo "Done."
 }
 
 
