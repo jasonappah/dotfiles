@@ -10,7 +10,6 @@ fi
 brew bundle
 
 # install yarn and yarn global tools
-# TODO: backup/restore npm globals too? maybe just use yarn for all globals? 
 npm i -g yarn
 cd $(yarn global dir) && yarn
 
@@ -19,3 +18,7 @@ cd $(yarn global dir) && yarn
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# TODO: add iTerm config
+# TODO: put ssh+gpg key in password manager
+# TODO: manage all desktop apps with homebrew cask
