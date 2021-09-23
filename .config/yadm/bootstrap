@@ -1,12 +1,21 @@
 #!/bin/bash
 
+# get homebrew
 if ! command -v brew >/dev/null 2>&1; then
   echo "Installing homebrew..."
   curl -fsSL "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 fi
 
+# install most of my important tools
 brew bundle
 
+# install yarn and yarn global tools
+# TODO: backup/restore npm globals too? maybe just use yarn for all globals? 
+npm i -g yarn
+cd $(yarn global dir) && yarn
+
+
+# install oh-my-zsh + other extensions not managed by brew 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
