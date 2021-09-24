@@ -4,4 +4,4 @@
 # actual script at .config/yadm/bootstrap
 
 sudo apt update && sudo apt install yadm
-yadm clone https://github.com/jasonappah/dotfiles --bootstrap
+yadm clone https://github.com/jasonappah/dotfiles --bootstrap -b main
