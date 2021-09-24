@@ -3,6 +3,5 @@
 # this is intended for use by GitHub Codespaces
 # actual script at .config/yadm/bootstrap
 
-apt update
-apt install yadm
+sudo apt update && sudo apt install yadm
 yadm clone https://github.com/jasonappah/dotfiles --bootstrap
