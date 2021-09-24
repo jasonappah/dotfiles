@@ -3,7 +3,7 @@
 # get homebrew
 if ! command -v brew >/dev/null 2>&1; then
   echo "Installing homebrew..."
-  curl -fsSL "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # install most of my important tools
