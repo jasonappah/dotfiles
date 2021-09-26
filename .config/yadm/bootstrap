@@ -2,8 +2,8 @@
 
 # get homebrew
 if ! command -v brew >/dev/null 2>&1; then
-  echo "Installing homebrew..."
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  echo "Installing Homebrew..."
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # install most of my important tools
@@ -12,7 +12,6 @@ brew bundle --no-lock
 # install yarn and yarn global tools
 npm i -g yarn
 cd $(yarn global dir) && yarn
-
 
 # install oh-my-zsh + other extensions not managed by brew 
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
