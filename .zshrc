@@ -7,6 +7,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+if [[ `uname` == "Darwin" ]]; then
+    ON_MAC=true
+else
+    ON_MAC=false
+fi
+
 #### FIG ENV VARIABLES ####
 [ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
 #### END FIG ENV VARIABLES ####
@@ -103,8 +109,6 @@ fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-eval $(thefuck --alias please)
-
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -189,4 +193,16 @@ brewfile() {
     echo "Done."
 }
 
+clean() {
+    brew cleanup --prune=all -s -v -d
+    npm cache verify
+    yarn cache clean
+}
+
+cleanAll() {
+    clean
+    if [[ ON_MAC ]]; then
+        rm -rf ~/Library/Caches
+    fi
+}
 
