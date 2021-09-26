@@ -7,7 +7,7 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 
 # install most of my important tools
-brew bundle
+brew bundle --no-lock
 
 # install yarn and yarn global tools
 npm i -g yarn
@@ -21,3 +21,4 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.
 
 # TODO: put ssh+gpg key in password manager
 # TODO: manage all desktop apps with homebrew cask
+# TODO: manage rust, flutter, other dev tools with homebrew

@@ -186,10 +186,28 @@ if [[ -r "$HOME/.special.zsh" ]]; then
   source ~/.special.zsh
 fi
 
-export HOMEBREW_BUNDLE_FILE="~/Brewfile"
+export HOMEBREW_BUNDLE_FILE="$HOME/Brewfile"
 brewfile() {
+    local LOCK_PATH BACKUP_LOCK_PATH
     echo "Saving Brewfile to $HOMEBREW_BUNDLE_FILE..."
+    # saves current state of installed formulae
     brew bundle dump --force
+
+    LOCK_PATH="${HOMEBREW_BUNDLE_FILE}.lock.json"
+    BACKUP_LOCK_PATH="${LOCK_PATH}-old-$(date)"
+    # if we don't rename the old Brewfile.lock.json, iirc brew bundle will try to install deps with the lockfile which isn't what we want
+    # we just want to save the current system state
+    if [[ -e $LOCK_PATH ]]; then
+        echo "Backing up $LOCK_PATH to $BACKUP_LOCK_PATH..."
+        mv $LOCK_PATH $BACKUP_LOCK_PATH
+    fi
+    
+    echo "Generating new $LOCK_PATH..."
+    brew bundle
+    if [[ -e $BACKUP_LOCK_PATH ]]; then
+        echo "Removing $BACKUP_LOCK_PATH..."
+        rm $BACKUP_LOCK_PATH
+    fi
     echo "Done."
 }
 
@@ -198,11 +216,3 @@ clean() {
     npm cache verify
     yarn cache clean
 }
-
-cleanAll() {
-    clean
-    if [[ ON_MAC ]]; then
-        rm -rf ~/Library/Caches
-    fi
-}
-
