@@ -6,15 +6,29 @@ if ! command -v brew >/dev/null 2>&1; then
   bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
+# really spending more time automating this than it would actually take me to do manually lol
+# m1 mac moment :/
+if [[ -e /opt/homebrew/bin/brew ]]; then
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.special.zsh
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # install most of my important tools
-brew bundle --no-lock
+if command -v brew >/dev/null 2>&1; then
+    brew bundle --no-lock
+fi
 
 # install yarn and yarn global tools
-npm i -g yarn
-cd $(yarn global dir) && yarn
+if command -v npm >/dev/null 2>&1; then
+    npm i -g yarn
+fi
+
+if command -v yarn >/dev/null 2>&1; then
+    cd $(yarn global dir) && yarn
+fi
 
 # install oh-my-zsh + other extensions not managed by brew 
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
