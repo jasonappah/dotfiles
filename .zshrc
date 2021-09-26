@@ -1,3 +1,8 @@
+if [[ -r "$HOME/.special.zsh" ]]; then
+  source ~/.special.zsh
+fi
+
+
 macchina --theme lithium -S -U -r -H WindowManager -H DesktopEnvironment
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -181,10 +186,6 @@ complete -o nospace -C /usr/local/bin/bit bit
 #### FIG ENV VARIABLES ####
 [ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
 #### END FIG ENV VARIABLES ####
-
-if [[ -r "$HOME/.special.zsh" ]]; then
-  source ~/.special.zsh
-fi
 
 export HOMEBREW_BUNDLE_FILE="$HOME/Brewfile"
 brewfile() {
