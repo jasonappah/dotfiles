@@ -16,6 +16,7 @@ fi
 # install most of my important tools
 if command -v brew >/dev/null 2>&1; then
     brew bundle --no-lock
+	nvm install --lts
 fi
 
 # install yarn and yarn global tools
@@ -33,5 +34,4 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # TODO: put ssh+gpg key in password manager
-# TODO: manage all desktop apps with homebrew cask
 # TODO: manage rust, flutter, other dev tools with homebrew

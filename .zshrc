@@ -18,6 +18,12 @@ else
     ON_MAC=false
 fi
 
+if [[ `arch` == "arm64" ]]; then
+	ARM=true
+else
+	ARM=false
+fi
+
 #### FIG ENV VARIABLES ####
 [ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
 #### END FIG ENV VARIABLES ####
@@ -137,12 +143,17 @@ export PATH="$HOME/Library/Android/sdk/tools/bin:$PATH"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# TODO: deal with homebrew stuff properly lol
+test -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+test -f /opt/homebrew/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh && /opt/homebrew/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh
 test -e /Users/jasonaa/.iterm2_shell_integration.zsh && source /Users/jasonaa/.iterm2_shell_integration.zsh || true
-export PATH="/Users/jasonaa/.pyenv/shims:${PATH}"
-export PATH="/Users/jasonaa/go/bin:$PATH"
+export PATH="~/.pyenv/shims:${PATH}"
+export PATH="~/go/bin:$PATH"
 export PYENV_SHELL=zsh
-source '/usr/local/Cellar/pyenv/2.0.7/libexec/../completions/pyenv.zsh'
+# TODO: same as above
+test -f '/usr/local/Cellar/pyenv/2.0.7/libexec/../completions/pyenv.zsh' && source '/usr/local/Cellar/pyenv/2.0.7/libexec/../completions/pyenv.zsh'
+test -f '/opt/homebrew/opt/pyenv/completions/pyenv.zsh' && source '/opt/homebrew/opt/pyenv/completions/pyenv.zsh'
 command pyenv rehash 2>/dev/null
 pyenv() {
   local command
@@ -216,4 +227,12 @@ clean() {
     brew cleanup --prune=all -s -v -d
     npm cache verify
     yarn cache clean
+}
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh" # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
+
+cx() {
+	code $* && exit
 }
