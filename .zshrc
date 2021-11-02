@@ -1,10 +1,8 @@
 if [[ -r "$HOME/.special.zsh" ]]; then
-  source ~/.special.zsh
+  source $HOME/.special.zsh
 fi
 
-
-macchina --theme lithium -S -U -r -H WindowManager -H DesktopEnvironment
-
+macchina -p Full -o Battery Memory ProcessorLoad Uptime --theme Lithium
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -30,7 +28,6 @@ fi
 
 alias gpgpls="gpgconf --kill gpg-agent"
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 export GPG_TTY=$(tty)
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -58,7 +55,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to automatically update without prompting.
-DISABLE_UPDATE_PROMPT="true"
+# DISABLE_UPDATE_PROMPT="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -126,11 +123,11 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="$EDITOR ~/.zshrc"
+alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
 # heroku autocomplete setup
-HEROKU_AC_BASH_SETUP_PATH=/Users/jasonaa/Library/Caches/heroku/autocomplete/bash_setup && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
+HEROKU_AC_BASH_SETUP_PATH="$HOME/Library/Caches/heroku/autocomplete/bash_setup" && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
 export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin/:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
@@ -139,17 +136,18 @@ export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/flutter/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/Library/Android/sdk/tools/bin:$PATH"
-
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
 
 
 # TODO: deal with homebrew stuff properly lol
 test -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 test -f /opt/homebrew/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh && /opt/homebrew/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh
-test -e /Users/jasonaa/.iterm2_shell_integration.zsh && source /Users/jasonaa/.iterm2_shell_integration.zsh || true
-export PATH="~/.pyenv/shims:${PATH}"
-export PATH="~/go/bin:$PATH"
+test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh" || true
+export PATH="$HOME/.pyenv/shims:${PATH}"
+export PATH="$HOME/go/bin:$PATH"
 export PYENV_SHELL=zsh
 # TODO: same as above
 test -f '/usr/local/Cellar/pyenv/2.0.7/libexec/../completions/pyenv.zsh' && source '/usr/local/Cellar/pyenv/2.0.7/libexec/../completions/pyenv.zsh'
@@ -172,10 +170,9 @@ pyenv() {
 
 alias clock="tty-clock -tSbBc"
 alias mirror="scrcpy"
-alias project="cd ~/documents/projects"
-alias src="cd ~/documents/src"
-export GPG_TTY=$(tty)
-gpgconf --launch gpg-agent
+alias project="cd $HOME/documents/projects"
+alias src="cd $HOME/documents/src"
+# gpgconf --launch gpg-agent
 alias chconnect="adb connect 192.168.43.1:5555"
 alias chinstall="adb install -r"
 alias blocks="adb forward tcp:8080 tcp:8080"
@@ -206,7 +203,7 @@ brewfile() {
     brew bundle dump --force
 
     LOCK_PATH="${HOMEBREW_BUNDLE_FILE}.lock.json"
-    BACKUP_LOCK_PATH="${LOCK_PATH}-old-$(date)"
+    BACKUP_LOCK_PATH="old-${LOCK_PATH}-$(date)"
     # if we don't rename the old Brewfile.lock.json, iirc brew bundle will try to install deps with the lockfile which isn't what we want
     # we just want to save the current system state
     if [[ -e $LOCK_PATH ]]; then
@@ -235,4 +232,30 @@ export NVM_DIR="$HOME/.nvm"
 
 cx() {
 	code $* && exit
+}
+
+cxf() {
+	cx $(fgh ls $*)
+}
+
+ix() {
+	idea $* && exit
+}
+
+ixf() {
+	ix $(fgh ls $*)
+}
+
+
+rcd() {
+	cd $(git rev-parse --show-toplevel)
+}
+
+# heroku autocomplete setup
+HEROKU_AC_ZSH_SETUP_PATH="$HOME/Library/Caches/heroku/autocomplete/zsh_setup" && test -f $HEROKU_AC_ZSH_SETUP_PATH && source $HEROKU_AC_ZSH_SETUP_PATH;
+
+pm-patch() {
+	for i in ~/library/fonts/PortlandMono-*; do
+	  fontforge -script ~/nerd-fonts/font-patcher -c $i
+	done
 }
