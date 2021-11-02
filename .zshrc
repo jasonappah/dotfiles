@@ -259,3 +259,11 @@ pm-patch() {
 	  fontforge -script ~/nerd-fonts/font-patcher -c $i
 	done
 }
+
+fixaudio() {
+	echo "Killing CoreAudio processes... src: https://apple.stackexchange.com/a/64024"
+	sudo kill -9 `ps ax|grep 'coreaudio[a-z]' | awk '{print $1}'`
+}
+
+alias hide-desk="defaults write com.apple.finder CreateDesktop false && killall Finder"
+alias show-desk="defaults write com.apple.finder CreateDesktop true && killall Finder"
