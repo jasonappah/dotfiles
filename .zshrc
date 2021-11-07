@@ -2,7 +2,7 @@ if [[ -r "$HOME/.special.zsh" ]]; then
   source $HOME/.special.zsh
 fi
 
-macchina -p Full -o Battery Memory ProcessorLoad Uptime --theme Lithium
+macchina -o Battery Memory ProcessorLoad Uptime
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -224,6 +224,7 @@ clean() {
     brew cleanup --prune=all -s -v -d
     npm cache verify
     yarn cache clean
+    cargo cache -e
 }
 
 export NVM_DIR="$HOME/.nvm"
