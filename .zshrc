@@ -2,7 +2,7 @@ if [[ -r "$HOME/.special.zsh" ]]; then
   source $HOME/.special.zsh
 fi
 
-macchina -o Battery Memory ProcessorLoad Uptime
+macchina -o Battery Memory ProcessorLoad Uptime Distribution Packages Terminal Resolution Host Shell
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -225,6 +225,7 @@ clean() {
     npm cache verify
     yarn cache clean
     cargo cache -e
+    docker image prune -a -f
 }
 
 export NVM_DIR="$HOME/.nvm"
@@ -268,3 +269,4 @@ fixaudio() {
 
 alias hide-desk="defaults write com.apple.finder CreateDesktop false && killall Finder"
 alias show-desk="defaults write com.apple.finder CreateDesktop true && killall Finder"
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
