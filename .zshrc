@@ -27,7 +27,6 @@ fi
 #### END FIG ENV VARIABLES ####
 
 alias gpgpls="gpgconf --kill gpg-agent"
-# If you come from bash you might have to change your $PATH.
 export GPG_TTY=$(tty)
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -49,7 +48,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -172,7 +171,6 @@ alias clock="tty-clock -tSbBc"
 alias mirror="scrcpy"
 alias project="cd $HOME/documents/projects"
 alias src="cd $HOME/documents/src"
-# gpgconf --launch gpg-agent
 alias chconnect="adb connect 192.168.43.1:5555"
 alias chinstall="adb install -r"
 alias blocks="adb forward tcp:8080 tcp:8080"
@@ -232,12 +230,15 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh" # This loads nvm
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 
+alias c="code"
+
 cx() {
 	code $* && exit
 }
 
 cxf() {
-	cx $(fgh ls $*)
+	proj_path=$(fgh ls $*)
+	cx $proj_path
 }
 
 ix() {
@@ -245,7 +246,8 @@ ix() {
 }
 
 ixf() {
-	ix $(fgh ls $*)
+	proj_path=$(fgh ls $*)
+	ix $proj_path
 }
 
 
@@ -270,3 +272,18 @@ fixaudio() {
 alias hide-desk="defaults write com.apple.finder CreateDesktop false && killall Finder"
 alias show-desk="defaults write com.apple.finder CreateDesktop true && killall Finder"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+alias tmux="tmux -CC"
+alias e="exit"
+
+if [[ $IS_MAC ]]; then
+fi
+
+if [[ -r "/Applications/Tailscale.app/Contents/MacOS/Tailscale" ]]; then
+	alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+fi
+
+# Bun completions
+[ -s "/Users/json/.bun/_bun" ] && source "/Users/json/.bun/_bun"
+
+# . /opt/homebrew/etc/profile.d/tii_on_command_not_found.sh

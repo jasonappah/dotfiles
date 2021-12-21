@@ -1,0 +1,3 @@
+[submodule "alexa-remote-control"]
+	path = scripts/alexa-remote-control
+	url = https://github.com/thorsten-gehrig/alexa-remote-control

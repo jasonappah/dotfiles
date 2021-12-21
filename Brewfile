@@ -1,9 +1,11 @@
 tap "dokku/repo"
 tap "hackclub/tap"
+tap "hacker1024/hacker1024"
 tap "heroku/brew"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
 tap "linuss1/taps"
@@ -11,15 +13,19 @@ tap "matt-gleich/taps"
 tap "smokris/getwindowid"
 tap "superfly/tap"
 brew "asciinema"
+brew "glib"
 brew "bat"
 brew "bit-git"
 brew "bitwarden-cli"
+brew "bpytop"
 brew "caddy"
 brew "checkstyle"
 brew "clang-format"
 brew "cmake"
 brew "cmatrix"
+brew "cppcheck"
 brew "curl"
+brew "deno"
 brew "diff-so-fancy"
 brew "docker-compose"
 brew "doctl"
@@ -57,6 +63,7 @@ brew "llvm"
 brew "lolcat"
 brew "lynx"
 brew "macchina"
+brew "macos-trash"
 brew "mas"
 brew "micro"
 brew "minikube"
@@ -85,6 +92,7 @@ brew "youtube-dl"
 brew "zsh"
 brew "zsh-syntax-highlighting"
 brew "hackclub/tap/haas"
+brew "hacker1024/hacker1024/coretemp"
 brew "heroku/brew/heroku"
 brew "matt-gleich/taps/fgh"
 brew "smokris/getwindowid/getwindowid"
@@ -118,15 +126,23 @@ cask "tower"
 cask "visual-studio-code"
 cask "zoom"
 cask "adobe-creative-cloud"
+cask "android-studio"
+cask "google-drive"
 cask "jetbrains-toolbox"
+cask "mactex"
+cask "obs"
+cask "texpad"
+cask "wireshark"
 mas "1Focus", id: 969210610
 mas "Amphetamine", id: 937984704
+mas "Bitwarden", id: 1352778147
 mas "Boop", id: 1518425043
 mas "Buddymove", id: 1491012222
 mas "Craft", id: 1487937127
 mas "Developer", id: 640199958
 mas "Flow", id: 1423210932
 mas "GarageBand", id: 682658836
+mas "Hidden Bar", id: 1452453066
 mas "Horo", id: 1437226581
 mas "HP Smart", id: 1474276998
 mas "iMovie", id: 408981434
@@ -135,6 +151,8 @@ mas "Microsoft OneNote", id: 784801555
 mas "Microsoft Remote Desktop", id: 1295203466
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
+mas "Pandan", id: 1569600264
+mas "QR Capture", id: 1369524274
 mas "Spark", id: 1176895641
 mas "Startup Disk Full Fixer", id: 1346655838
 mas "Tailscale", id: 1475387142

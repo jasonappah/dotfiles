@@ -1,3 +1,4 @@
 [v1]
 "cargo-cache 0.6.3 (registry+https://github.com/rust-lang/crates.io-index)" = ["cargo-cache"]
 "cargo-edit 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)" = ["cargo-add", "cargo-rm", "cargo-set-version", "cargo-upgrade"]
+"cargo-make 0.35.6 (registry+https://github.com/rust-lang/crates.io-index)" = ["cargo-make", "makers"]
