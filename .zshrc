@@ -1,6 +1,12 @@
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the start of this file.
+[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+#### END FIG ENV VARIABLES ####
 if [[ -r "$HOME/.special.zsh" ]]; then
   source $HOME/.special.zsh
 fi
+
+. /opt/homebrew/etc/profile.d/tii_on_command_not_found.sh
 
 macchina -o Battery Memory ProcessorLoad Uptime Distribution Packages Terminal Resolution Host Shell
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -22,9 +28,9 @@ else
 	ARM=false
 fi
 
-#### FIG ENV VARIABLES ####
-[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
-#### END FIG ENV VARIABLES ####
+
+
+
 
 alias gpgpls="gpgconf --kill gpg-agent"
 export GPG_TTY=$(tty)
@@ -189,9 +195,9 @@ autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bit bit
 
 
-#### FIG ENV VARIABLES ####
-[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
-#### END FIG ENV VARIABLES ####
+
+
+
 
 export HOMEBREW_BUNDLE_FILE="$HOME/Brewfile"
 brewfile() {
@@ -223,6 +229,8 @@ clean() {
     npm cache verify
     yarn cache clean
     cargo cache -e
+    pnpm store prune
+    nvm cache clear
     docker image prune -a -f
 }
 
@@ -273,17 +281,36 @@ alias hide-desk="defaults write com.apple.finder CreateDesktop false && killall 
 alias show-desk="defaults write com.apple.finder CreateDesktop true && killall Finder"
 export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
 
-alias tmux="tmux -CC"
-alias e="exit"
-
-if [[ $IS_MAC ]]; then
-fi
+alias e="exit" x="exit"
 
 if [[ -r "/Applications/Tailscale.app/Contents/MacOS/Tailscale" ]]; then
 	alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 fi
 
 # Bun completions
-[ -s "/Users/json/.bun/_bun" ] && source "/Users/json/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-# . /opt/homebrew/etc/profile.d/tii_on_command_not_found.sh
+alias arc="$HOME/scripts/alexa-remote-control/alexa_remote_control.sh"
+alias busy="genact"
+
+alias gs="git status"
+
+alias y="yarn" ni="npm i" pi="pnpm install"
+
+up() {
+	if [[ -e "package.json" ]]; then
+		if [[ -s "./yarn.lock"  || -s "./package-lock.json" ]]; then
+			echo "Importing from lockfile..."
+			pnpm import
+		fi
+		echo "Installing..."
+		pnpm install
+	else
+		echo "No package.json file detected."
+	fi
+}
+
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the end of this file.
+[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+#### END FIG ENV VARIABLES ####

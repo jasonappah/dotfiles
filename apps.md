@@ -20,6 +20,9 @@ Apps:
 - Fusion 360
 - Unity
 - Shortery
+- Dremel DigiLab 3D Slicer
+- TI Connect CE
+- ETC Eos
 
 Music tools (VSTs, sound packs, etc)
 - Steinberg Download Assistant
