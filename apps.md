@@ -5,7 +5,6 @@ Apps:
 - Illustrator (ACC is installed with Brew)
 - Cura
 - EOS Utility
-- Arctype
 - Krisp
 - Left (text editor)
 - MIDI Touchbar
@@ -17,12 +16,9 @@ Apps:
 - Amphetamine Enhancer
 - Minecraft
 - Warp
-- Fusion 360
 - Unity
 - Shortery
 - Dremel DigiLab 3D Slicer
-- TI Connect CE
-- ETC Eos
 
 Music tools (VSTs, sound packs, etc)
 - Steinberg Download Assistant

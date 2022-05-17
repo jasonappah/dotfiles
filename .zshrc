@@ -1,20 +1,22 @@
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the start of this file.
-[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
-#### END FIG ENV VARIABLES ####
+# Fig pre block. Keep at the top of this file.
+. "$HOME/.fig/shell/zshrc.pre.zsh"
 if [[ -r "$HOME/.special.zsh" ]]; then
   source $HOME/.special.zsh
 fi
 
-. /opt/homebrew/etc/profile.d/tii_on_command_not_found.sh
-
 macchina -o Battery Memory ProcessorLoad Uptime Distribution Packages Terminal Resolution Host Shell
+
+
+
+. /opt/homebrew/etc/profile.d/tii_on_command_not_found.sh
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+export CLOUDSDK_PYTHON=/opt/homebrew/Cellar/python@3.9/3.9.12_1/bin/python3
 
 if [[ `uname` == "Darwin" ]]; then
     ON_MAC=true
@@ -201,31 +203,22 @@ complete -o nospace -C /usr/local/bin/bit bit
 
 export HOMEBREW_BUNDLE_FILE="$HOME/Brewfile"
 brewfile() {
-    local LOCK_PATH BACKUP_LOCK_PATH
+    local LOCK_PATH
     echo "Saving Brewfile to $HOMEBREW_BUNDLE_FILE..."
     # saves current state of installed formulae
     brew bundle dump --force
 
     LOCK_PATH="${HOMEBREW_BUNDLE_FILE}.lock.json"
-    BACKUP_LOCK_PATH="old-${LOCK_PATH}-$(date)"
-    # if we don't rename the old Brewfile.lock.json, iirc brew bundle will try to install deps with the lockfile which isn't what we want
-    # we just want to save the current system state
     if [[ -e $LOCK_PATH ]]; then
-        echo "Backing up $LOCK_PATH to $BACKUP_LOCK_PATH..."
-        mv $LOCK_PATH $BACKUP_LOCK_PATH
-    fi
-    
-    echo "Generating new $LOCK_PATH..."
-    brew bundle
-    if [[ -e $BACKUP_LOCK_PATH ]]; then
-        echo "Removing $BACKUP_LOCK_PATH..."
-        rm $BACKUP_LOCK_PATH
+        rm $LOCK_PATH
     fi
     echo "Done."
 }
 
 clean() {
     brew cleanup --prune=all -s -v -d
+    brew autoremove
+    rm -rf "$(brew --cache)"
     npm cache verify
     yarn cache clean
     cargo cache -e
@@ -310,7 +303,16 @@ up() {
 	fi
 }
 
-#### FIG ENV VARIABLES ####
-# Please make sure this block is at the end of this file.
-[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
-#### END FIG ENV VARIABLES ####
+export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
+export PATH="/Users/json/.rbenv/versions/3.1.1/bin/:$PATH"
+
+
+# bun completions
+[ -s "/Users/json/.bun/_bun" ] && source "/Users/json/.bun/_bun"
+
+kill-port() {
+	kill -9 $(lsof -t -i:$1)
+}
+
+# Fig post block. Keep at the bottom of this file.
+. "$HOME/.fig/shell/zshrc.post.zsh"
