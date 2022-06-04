@@ -19,6 +19,8 @@ Apps:
 - Unity
 - Shortery
 - Dremel DigiLab 3D Slicer
+- AWS CLI 2
+- Lens
 
 Music tools (VSTs, sound packs, etc)
 - Steinberg Download Assistant
