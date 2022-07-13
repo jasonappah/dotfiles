@@ -4,8 +4,6 @@
     "create-react-app": "^3.4.1",
     "localtunnel": "^2.0.1",
     "nodemon": "^2.0.12",
-    "npm": "^8.12.1",
-    "pnpm": "^6.28.0",
     "tldr": "^3.3.7",
   }
 }
