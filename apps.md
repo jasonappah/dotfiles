@@ -2,30 +2,44 @@
 
 Apps:
 - Xcode
-- Illustrator (ACC is installed with Brew)
 - Cura
-- EOS Utility
 - Krisp
 - Left (text editor)
 - MIDI Touchbar
 - NDI Tools
 - AnyDesk
 - TeamViewer
-- Electrum
-- X32TC
 - Amphetamine Enhancer
 - Minecraft
 - Warp
-- Unity
-- Shortery
-- Dremel DigiLab 3D Slicer
 - AWS CLI 2
 - Lens
 
 Music tools (VSTs, sound packs, etc)
 - Steinberg Download Assistant
 - MeldaProduction
-- ...a lot of other stuff i need to grab from my old machine
+- ValhallaFreqEcho
+- Softube Saturation Knob
+- Plugin Alliance
+- sforzando
+- CWITEC TX16Wx
+- UVIWorkstation
+- NI stuff
+- LinPlug FreeAlpha
+- Flux StereoTool + BitterSweet
+- AIR Hybrid 3
+- CamelCrusher
+- Aalto
+- Tru-Urban Tru-Bass
+- TAL NoiseMaker
+- osoumen C700
+- MH Thump
+- Futucraft Kairatune
+- Tunefish4
+- Blue Cat Audio BC Chorus
+- Bitsonic Keyzone Classic
+- bigcat City Piano
+- 4Front Piano
 
 Random
 - Portland (https://allotrope.dev/portland)

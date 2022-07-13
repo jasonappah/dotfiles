@@ -1,5 +1,5 @@
 # Fig pre block. Keep at the top of this file.
-. "$HOME/.fig/shell/zshrc.pre.zsh"
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
 if [[ -r "$HOME/.special.zsh" ]]; then
   source $HOME/.special.zsh
 fi
@@ -7,7 +7,7 @@ fi
 macchina -o Battery Memory ProcessorLoad Uptime Distribution Packages Terminal Resolution Host Shell
 
 
-. "/usr/local/Cellar/tii/1.1.0/etc/profile.d/tii_on_command_not_found.sh"
+. "/usr/local/opt/tii/etc/profile.d/tii_on_command_not_found.sh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -15,8 +15,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export BAT_THEME="GitHub"
-export CLOUDSDK_PYTHON="/usr/local/Cellar/python@3.9/3.9.13_1//bin/python3"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
 
 if [[ `uname` == "Darwin" ]]; then
     ON_MAC=true
@@ -29,9 +29,6 @@ if [[ `arch` == "arm64" ]]; then
 else
 	ARM=false
 fi
-
-
-
 
 
 alias gpgpls="gpgconf --kill gpg-agent"
@@ -103,7 +100,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions)
+plugins=(git zsh-autosuggestions zsh-nvm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -145,21 +142,17 @@ export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/Library/Android/sdk/tools/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="/opt/homebrew/opt/postgresql@13/bin:$PATH"
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f $HOME/.p10k.zsh ]] || source $HOME/.p10k.zsh
-
+export PATH="/usr/local/opt/postgresql@13/bin:$PATH"
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 # TODO: deal with homebrew stuff properly lol
 test -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-test -f /opt/homebrew/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh && /opt/homebrew/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh
+test -f /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh && /usr/local/optt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh" || true
 export PATH="$HOME/.pyenv/shims:${PATH}"
 export PATH="$HOME/go/bin:$PATH"
 export PYENV_SHELL=zsh
-# TODO: same as above
-test -f '/usr/local/Cellar/pyenv/2.0.7/libexec/../completions/pyenv.zsh' && source '/usr/local/Cellar/pyenv/2.0.7/libexec/../completions/pyenv.zsh'
-test -f '/opt/homebrew/opt/pyenv/completions/pyenv.zsh' && source '/opt/homebrew/opt/pyenv/completions/pyenv.zsh'
+test -f '/usr/local/opt/pyenv/completions/pyenv.zsh' && source '/usr/local/opt/pyenv/completions/pyenv.zsh'
 command pyenv rehash 2>/dev/null
 pyenv() {
   local command
@@ -180,12 +173,9 @@ alias clock="tty-clock -tSbBc"
 alias mirror="scrcpy"
 alias project="cd $HOME/documents/projects"
 alias src="cd $HOME/documents/src"
-alias chconnect="adb connect 192.168.43.1:5555"
-alias chinstall="adb install -r"
-alias blocks="adb forward tcp:8080 tcp:8080"
 alias pi-code="ssh -N -L 8080:127.0.0.1:8080 pi@raspberrypi.local"
 alias cat="bat"
-alias ls="exa --long --header --git -F -a -b --group-directories-first" 
+alias ls="exa --long --header --git -F -a -b --group-directories-first"
 alias t="gittower"
 alias n="nnn"
 
@@ -196,10 +186,6 @@ fcd() { cd "$(fgh ls "$@" 2>/dev/null)" || ( echo "Failed to find repository" &&
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/bit bit
-
-
-
-
 
 
 export HOMEBREW_BUNDLE_FILE="$HOME/Brewfile"
@@ -228,9 +214,6 @@ clean() {
     docker image prune -a -f
 }
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && . "/opt/homebrew/opt/nvm/nvm.sh" # This loads nvm
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
 
 alias c="code"
 
@@ -273,7 +256,8 @@ fixaudio() {
 
 alias hide-desk="defaults write com.apple.finder CreateDesktop false && killall Finder"
 alias show-desk="defaults write com.apple.finder CreateDesktop true && killall Finder"
-export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
 alias e="exit" x="exit"
 
@@ -304,16 +288,16 @@ up() {
 	fi
 }
 
-export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
+
+export PATH="/usr/local/opt/python@3.10/bin:$PATH"
 export PATH="/Users/json/.rbenv/versions/3.1.1/bin/:$PATH"
 
-
-# bun completions
-[ -s "/Users/json/.bun/_bun" ] && source "/Users/json/.bun/_bun"
 
 kill-port() {
 	kill -9 $(lsof -t -i:$1)
 }
 
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 # Fig post block. Keep at the bottom of this file.
-. "$HOME/.fig/shell/zshrc.post.zsh"
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
