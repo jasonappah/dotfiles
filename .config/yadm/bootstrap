@@ -19,9 +19,8 @@ if command -v brew >/dev/null 2>&1; then
 	nvm install --lts
 fi
 
-# install yarn and yarn global tools
-if command -v npm >/dev/null 2>&1; then
-    npm i -g yarn
+if command -v corepack >/dev/null 2>&1; then
+    corepack enable
 fi
 
 if command -v yarn >/dev/null 2>&1; then
@@ -33,5 +32,3 @@ KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohm
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
-# TODO: put ssh+gpg key in password manager
-# TODO: manage rust, flutter, other dev tools with homebrew
