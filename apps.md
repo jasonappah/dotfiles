@@ -1,5 +1,8 @@
 # Tools that I use that aren't managed by Brew
 
+CLIs:
+- Bun
+
 Apps:
 - Xcode
 - Cura

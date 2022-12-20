@@ -1,7 +1,7 @@
 [user]
 	email = hey@jasonaa.me
 	name = Jason Antwi-Appah
-	signingkey = E21BB2506A8C5C65F3B317285F28B3C0D450E898
+	signingkey = 3DA648F8
 [filter "lfs"]
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
@@ -16,6 +16,8 @@
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [gpg]
-	program = /usr/local/bin/gpg
+	program = /opt/homebrew/bin/gpg
 [init]
 	defaultBranch = main
+[push]
+	autoSetupRemote = true

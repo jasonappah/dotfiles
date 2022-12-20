@@ -1,5 +1,5 @@
 # Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && . "$HOME/.fig/shell/zshrc.pre.zsh"
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 if [[ -r "$HOME/.special.zsh" ]]; then
   source $HOME/.special.zsh
 fi
@@ -7,7 +7,7 @@ fi
 macchina -o Battery Memory ProcessorLoad Uptime Distribution Packages Terminal Resolution Host Shell
 
 
-. "/usr/local/opt/tii/etc/profile.d/tii_on_command_not_found.sh"
+. "/opt/homebrew/opt/tii/etc/profile.d/tii_on_command_not_found.sh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -33,6 +33,7 @@ fi
 
 alias gpgpls="gpgconf --kill gpg-agent"
 export GPG_TTY=$(tty)
+alias nogp="sudo killall GlobalProtect && sudo killall PanGPS"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -100,7 +101,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-nvm)
+plugins=(git zsh-autosuggestions zsh-nvm you-should-use)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -132,27 +133,25 @@ alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
 # heroku autocomplete setup
 HEROKU_AC_BASH_SETUP_PATH="$HOME/Library/Caches/heroku/autocomplete/bash_setup" && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
-export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin/:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-export PATH="/Library/Frameworks/Python.framework/Versions/3.8/bin:$PATH"
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/flutter/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/Library/Android/sdk/tools/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-export PATH="/usr/local/opt/postgresql@13/bin:$PATH"
+#export PATH="/opt/homebrew/opt/postgresql@13/bin:$PATH"
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 # TODO: deal with homebrew stuff properly lol
-test -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-test -f /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh && /usr/local/optt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh
+test -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh && source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+test -f /opt/homebrew/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh && /opt/homebrew/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting.zsh
 test -e "$HOME/.iterm2_shell_integration.zsh" && source "$HOME/.iterm2_shell_integration.zsh" || true
 export PATH="$HOME/.pyenv/shims:${PATH}"
 export PATH="$HOME/go/bin:$PATH"
 export PYENV_SHELL=zsh
-test -f '/usr/local/opt/pyenv/completions/pyenv.zsh' && source '/usr/local/opt/pyenv/completions/pyenv.zsh'
+test -f '/opt/homebrew/opt/pyenv/completions/pyenv.zsh' && source '/opt/homebrew/opt/pyenv/completions/pyenv.zsh'
 command pyenv rehash 2>/dev/null
 pyenv() {
   local command
@@ -212,6 +211,7 @@ clean() {
     pnpm store prune
     nvm cache clear
     docker image prune -a -f
+    docker system prune
 }
 
 
@@ -245,8 +245,23 @@ HEROKU_AC_ZSH_SETUP_PATH="$HOME/Library/Caches/heroku/autocomplete/zsh_setup" &&
 
 pm-patch() {
 	for i in ~/library/fonts/PortlandMono-*; do
-	  fontforge -script ~/nerd-fonts/font-patcher -c $i
+	  fontforge -script ~/nerd-fonts/font-patcher -c $i --careful -l=false
 	done
+}
+
+# Docker stop + delete
+dsd() {
+	docker stop $1
+	docker rm $1
+}
+
+# Docker stop + delete last (container)
+dsdl() {
+	dsd $(docker ps -q -n 1)
+}
+
+rp() {
+	caddy reverse-proxy -from :443 -to :3000 -insecure
 }
 
 fixaudio() {
@@ -268,13 +283,12 @@ fi
 # Bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
-alias arc="$HOME/scripts/alexa-remote-control/alexa_remote_control.sh"
 alias busy="genact"
-
+alias h="cd ~"
 alias gs="git status"
 
 alias y="yarn" ni="npm i" pi="pnpm install"
-
+alias python="python3"
 up() {
 	if [[ -e "package.json" ]]; then
 		if [[ -s "./yarn.lock"  || -s "./package-lock.json" ]]; then
@@ -289,15 +303,16 @@ up() {
 }
 
 
-export PATH="/usr/local/opt/python@3.10/bin:$PATH"
-export PATH="/Users/json/.rbenv/versions/3.1.1/bin/:$PATH"
+export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
 
 
 kill-port() {
 	kill -9 $(lsof -t -i:$1)
 }
+# bun completions
+[ -s "/Users/json/.bun/_bun" ] && source "/Users/json/.bun/_bun"
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
