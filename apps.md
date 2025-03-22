@@ -6,15 +6,11 @@ CLIs:
 Apps:
 - Xcode
 - MIDI Touchbar
-- AnyDesk
-- TeamViewer
 - Amphetamine Enhancer
 
 Music tools (VSTs, sound packs, etc)
 - Steinberg Download Assistant
 - MeldaProduction
-- ValhallaFreqEcho
-- Softube Saturation Knob
 - Plugin Alliance
 - sforzando
 - CWITEC TX16Wx
