@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+
+GLOBAL_PACKAGE_JSON_PATH = "/Users/json/.config/gn.json"
+
+HELP = f"""
+gn - global npm
+
+Usage:
+  gn current
+  - Displays all currently installed global npm dependencies
+  gn saved
+  - Displays all saved global npm dependencies
+  gn save
+  - Saves all global npm dependencies to {GLOBAL_PACKAGE_JSON_PATH}
+  gn install
+  - Installs all global npm dependencies from {GLOBAL_PACKAGE_JSON_PATH}
+"""
+
+import subprocess
+import json
+import sys
+
+
+BASE_PACKAGE_JSON = {
+  "name": "global-npm",
+  "description": "List of global npm dependencies tracked by gn script",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jason Antwi-Appah <hey@jasonaa.me>",
+}
+
+def get_current_global_dependencies():
+    command = "npm list --parseable --global --depth 0"
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    output, error = process.communicate()
+    lines = output.splitlines()
+    prefix_dirs, dep_dirs = lines[0], lines[1:]
+    deps: dict[str, str] = {}
+    for dep_dir in dep_dirs:
+      with open(dep_dir + '/package.json') as f:
+        data = json.load(f)
+        deps[data["name"]] = data["version"]
+    return deps
+    
+    
+def get_saved_global_dependencies():
+  with open(GLOBAL_PACKAGE_JSON_PATH) as f:
+    data = json.load(f)
+    return data["dependencies"]
+    
+def save_current_global_dependencies():
+  deps = get_current_global_dependencies()
+  with open(GLOBAL_PACKAGE_JSON_PATH, "w") as f:
+    new_json = BASE_PACKAGE_JSON | {"dependencies": deps}
+    json.dump(new_json, f, indent=2)
+    
+def install_saved_dependencies():
+  deps = get_saved_global_dependencies()
+  install_global_dependencies(deps)
+
+def install_global_dependencies(deps: dict[str, str]):
+  for dep, version in deps.items():
+    command = f"npm install --global {dep}@{version}"
+    process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    output, error = process.communicate()
+    print(output)
+    print(error)
+
+
+def run():
+  args = sys.argv[1:]
+  if len(args) == 0:
+    print(HELP)
+    return
+    
+  command = args[0]
+    
+  match command:
+    case "current":
+      print(get_current_global_dependencies())
+    case "saved":
+      print(get_saved_global_dependencies())
+    case "install":
+      install_saved_dependencies()
+      print("Installed!")
+    case "save":
+      save_current_global_dependencies()
+      print("Saved!")
+    case _:
+      print("Unknown command")
+      print(HELP)
+
+if __name__ == "__main__":
+  run()
