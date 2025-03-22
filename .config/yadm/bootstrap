@@ -15,23 +15,16 @@ fi
 
 # install most of my important tools
 if command -v brew >/dev/null 2>&1; then
-    brew bundle --no-lock
-	nvm install --lts
+  brew bundle --no-lock
+	fnm install --lts --corepack-enabled
 fi
 
-if command -v corepack >/dev/null 2>&1; then
-    corepack enable
+
+if command -v npm >/dev/null 2>&1; then
+  gn
 fi
 
-if command -v yarn >/dev/null 2>&1; then
-    cd $(yarn global dir) && yarn
-fi
-
-# install oh-my-zsh + other extensions not managed by brew 
-KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-git clone --depth=1 https://github.com/lukechilds/zsh-nvm ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-nvm
-git clone --depth=1 https://github.com/MichaelAquilina/zsh-you-should-use.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/you-should-use
+echo $(which fish) >> /etc/shells
+chsh -s $(which fish)
 
 git clone --depth=1 https://github.com/wakatime/micro-wakatime ~/.config/micro/plug/wakatime

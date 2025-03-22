@@ -5,18 +5,10 @@ CLIs:
 
 Apps:
 - Xcode
-- Cura
-- Krisp
-- Left (text editor)
 - MIDI Touchbar
-- NDI Tools
 - AnyDesk
 - TeamViewer
 - Amphetamine Enhancer
-- Minecraft
-- Warp
-- AWS CLI 2
-- Lens
 
 Music tools (VSTs, sound packs, etc)
 - Steinberg Download Assistant
