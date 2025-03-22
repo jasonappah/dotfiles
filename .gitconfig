@@ -15,6 +15,7 @@
 	rebase = true
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
+	excludesFile = ~/.gitignore
 [gpg]
 	program = /opt/homebrew/bin/gpg
 [init]
