@@ -15,7 +15,7 @@ fi
 
 # install most of my important tools
 if command -v brew >/dev/null 2>&1; then
-  brew bundle --no-lock
+  brew bundle
 	fnm install --lts --corepack-enabled
 fi
 
@@ -23,8 +23,5 @@ fi
 if command -v npm >/dev/null 2>&1; then
   gn
 fi
-
-echo $(which fish) >> /etc/shells
-chsh -s $(which fish)
 
 git clone --depth=1 https://github.com/wakatime/micro-wakatime ~/.config/micro/plug/wakatime
