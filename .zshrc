@@ -1,13 +1,13 @@
-# Fig pre block. Keep at the top of this file.
-[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 if [[ -r "$HOME/.special.zsh" ]]; then
   source $HOME/.special.zsh
 fi
 
-macchina -o Battery Memory ProcessorLoad Uptime Distribution Packages Terminal Resolution Host Shell
+macchina -o battery -o memory -o processor-load -o uptime -o distribution -o packages -o terminal -o resolution -o host -o shell
 
 
-. "/opt/homebrew/opt/tii/etc/profile.d/tii_on_command_not_found.sh"
+# . "/opt/homebrew/opt/tii/etc/profile.d/tii_on_command_not_found.sh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -57,7 +57,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to automatically update without prompting.
 # DISABLE_UPDATE_PROMPT="true"
@@ -135,14 +135,15 @@ alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 HEROKU_AC_BASH_SETUP_PATH="$HOME/Library/Caches/heroku/autocomplete/bash_setup" && test -f $HEROKU_AC_BASH_SETUP_PATH && source $HEROKU_AC_BASH_SETUP_PATH;
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
+export ANDROID_HOME=$HOME/Library/Android/sdk && export PATH=$PATH:$ANDROID_HOME/emulator && export PATH=$PATH:$ANDROID_HOME/platform-tools
+
 export PATH="$HOME/.poetry/bin:$PATH"
 export PATH="$HOME/flutter/bin:$PATH"
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/Library/Android/sdk/tools/bin:$PATH"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-#export PATH="/opt/homebrew/opt/postgresql@13/bin:$PATH"
-export HOMEBREW_NO_AUTO_UPDATE=1
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
 
 # TODO: deal with homebrew stuff properly lol
 test -f /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh && source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -171,10 +172,12 @@ pyenv() {
 alias clock="tty-clock -tSbBc"
 alias mirror="scrcpy"
 alias project="cd $HOME/documents/projects"
+alias p="project"
 alias src="cd $HOME/documents/src"
+alias s="src"
 alias pi-code="ssh -N -L 8080:127.0.0.1:8080 pi@raspberrypi.local"
 alias cat="bat"
-alias ls="exa --long --header --git -F -a -b --group-directories-first"
+alias ls="eza --long --header --git -F -a -b --group-directories-first"
 alias t="gittower"
 alias n="nnn"
 
@@ -202,12 +205,20 @@ brewfile() {
 }
 
 clean() {
+    rm -rf ~/Library/Caches/pypoetry/virtualenvs
+	rm -rf ~/.local/share/virtualenvs/*
+	p
+	no-mod
+	no-py-mod
+	s
+	no-mod
+	no-py-mod
     brew cleanup --prune=all -s -v -d
     brew autoremove
     rm -rf "$(brew --cache)"
-    npm cache verify
+    npm cache clean -f
     yarn cache clean
-    cargo cache -e
+    cargo cache -r all
     pnpm store prune
     nvm cache clear
     docker image prune -a -f
@@ -272,8 +283,6 @@ fixaudio() {
 alias hide-desk="defaults write com.apple.finder CreateDesktop false && killall Finder"
 alias show-desk="defaults write com.apple.finder CreateDesktop true && killall Finder"
 
-export PATH="/usr/local/opt/openjdk/bin:$PATH"
-
 alias e="exit" x="exit"
 
 if [[ -r "/Applications/Tailscale.app/Contents/MacOS/Tailscale" ]]; then
@@ -287,7 +296,6 @@ alias busy="genact"
 alias h="cd ~"
 alias gs="git status"
 
-alias y="yarn" ni="npm i" pi="pnpm install"
 alias python="python3"
 up() {
 	if [[ -e "package.json" ]]; then
@@ -302,10 +310,6 @@ up() {
 	fi
 }
 
-
-export PATH="/opt/homebrew/opt/python@3.10/bin:$PATH"
-
-
 kill-port() {
 	kill -9 $(lsof -t -i:$1)
 }
@@ -314,5 +318,52 @@ kill-port() {
 
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+no-mod() {
+	find . -name "node_modules" -type d -prune -exec rm -rf '{}' +
+	find . -name ".next" -type d -prune -exec rm -rf '{}' +
+	find . -name ".vite" -type d -prune -exec rm -rf '{}' +
+}
+
+no-py-mod() {
+	find . -name "venv" -type d -prune -exec rm -rf '{}' +
+	find . -name ".venv"  -type d -prune -exec rm -rf '{}' +
+	find . -name "__pycache__" -type d -prune -exec rm -rf '{}' +
+}
+
+alias quitvpn="launchctl unload /Library/LaunchAgents/com.paloaltonetworks.gp.pangp*"
+alias usevpn="launchctl load /Library/LaunchAgents/com.paloaltonetworks.gp.pangp*"
+
+export PATH="$PATH:$HOME/.local/bin"
+
+alias pt="pix2tex"
+alias z="zed"
+
+alias i="interpreter"
+alias iv="interpreter --vision"
+alias io="interpreter --os"
+
+# sst
+export PATH=/Users/json/.sst/bin:$PATH
+
+export PATH="$PATH:/opt/homebrew/opt/ccache/libexec"
+
+eval "$(rbenv init - zsh)"
+
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"
+
+export CLOUDFLARE_API_TOKEN="MgF3xW6NoTqBRPIaqlHBry3-veU_mRMzU1BTQRHW"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home"
+
+
+export DOTNET_ROOT=/usr/local/share/dotnet
+export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools:$HOME/.dotnet
+
+# Auto-Warpify
+printf 'P$f{"hook": "SourcedRcFileForWarp", "value": { "shell": "zsh", "uname": "Darwin" }}�' 
+
+export PATH=$PATH:~/scripts
