@@ -7,11 +7,14 @@
   "author": "Jason Antwi-Appah <hey@jasonaa.me>",
   "dependencies": {
     "@antfu/ni": "24.3.0",
+    "@biomejs/biome": "1.9.4",
     "@immich/cli": "2.2.48",
     "@northflank/cli": "0.9.24",
     "corepack": "0.29.4",
     "eas-cli": "14.2.0",
     "npm": "10.9.0",
-    "taze": "19.0.2"
+    "taze": "19.0.2",
+    "ts-node": "10.9.2",
+    "typescript": "5.8.2"
   }
 }
