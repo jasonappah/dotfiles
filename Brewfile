@@ -1,13 +1,13 @@
+tap "gleich/tap"
+tap "matt-gleich/taps"
 brew "bat"
 brew "curl"
 brew "deno"
-cask "valhalla-freq-echo"
-cask "valhalla-space-modulator"
-cask "valhalla-supermassive"
 brew "diff-so-fancy"
 brew "eza"
 brew "fish"
 brew "flyctl"
+brew "fnm"
 brew "fzf"
 brew "gh"
 brew "git"
@@ -30,11 +30,14 @@ brew "railway"
 brew "rclone"
 brew "ripgrep"
 brew "rustup"
+brew "starship"
+brew "watchman"
 brew "wget"
 brew "wifi-password"
 brew "yadm"
 brew "yt-dlp"
-brew "gleich/homebrew-tap/fgh"
+brew "zoxide"
+brew "matt-gleich/taps/fgh"
 cask "ableton-live-suite"
 cask "affinity-designer"
 cask "affinity-photo"
@@ -50,6 +53,7 @@ cask "beeper"
 cask "blackhole-16ch"
 cask "cap"
 cask "cursor"
+cask "discord"
 cask "figma"
 cask "firefox"
 cask "font-fira-code"
@@ -78,13 +82,14 @@ cask "native-access"
 cask "ngrok"
 cask "nomachine"
 cask "notion"
+cask "notion-calendar"
 cask "obs"
 cask "omnissa-horizon-client"
 cask "onedrive"
 cask "onyx"
+cask "orbstack"
 cask "orion"
 cask "parsec"
-cask "plugdata@nightly"
 cask "raspberry-pi-imager"
 cask "raycast"
 cask "rectangle"
@@ -103,6 +108,9 @@ cask "tdr-vos-slickeq"
 cask "teamviewer"
 cask "todoist"
 cask "tower"
+cask "valhalla-freq-echo"
+cask "valhalla-space-modulator"
+cask "valhalla-supermassive"
 cask "vlc"
 cask "warp"
 cask "waves-central"
@@ -111,19 +119,20 @@ cask "wireshark"
 cask "xquartz"
 cask "zed"
 cask "zoom"
+cask "zulu@17"
 mas "1Focus", id: 969210610
 mas "Amphetamine", id: 937984704
 mas "Bitwarden", id: 1352778147
 mas "Boop", id: 1518425043
-mas "Contrast", id: 1254981365
 mas "DevCleaner", id: 1388020431
 mas "Developer", id: 640199958
 mas "Flow", id: 1423210932
 mas "GarageBand", id: 682658836
 mas "Horo", id: 1437226581
 mas "iMovie", id: 408981434
-mas "Microsoft Remote Desktop", id: 1295203466
+mas "Keynote", id: 409183694
 mas "Notion Web Clipper", id: 1559269364
+mas "Numbers", id: 409203825
 mas "OneTab", id: 1540160809
 mas "Pages", id: 409201541
 mas "Pandan", id: 1569600264
@@ -133,5 +142,7 @@ mas "Tailscale", id: 1475387142
 mas "Telephone", id: 406825478
 mas "Termius", id: 1176074088
 mas "TestFlight", id: 899247664
+mas "Windows App", id: 1295203466
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
+vscode "eamodio.gitlens"
