@@ -1,6 +1,6 @@
 clone_clipboard: true
 structure:
   - OWNER
-structure_root: "Documents/src"
+structure_root: "Developer/src"
 lowercase_lang: true
 space_character: ""
