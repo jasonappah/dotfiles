@@ -1,0 +1,1 @@
+pyenv init - fish | source
