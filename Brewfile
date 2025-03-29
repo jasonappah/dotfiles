@@ -10,6 +10,7 @@ brew "eza"
 brew "fish"
 brew "flyctl"
 brew "fnm"
+brew "fontforge"
 brew "fzf"
 brew "gh"
 brew "git"
@@ -97,6 +98,7 @@ cask "onyx"
 cask "orbstack"
 cask "orion"
 cask "parsec"
+cask "postman"
 cask "raspberry-pi-imager"
 cask "raycast"
 cask "rectangle"
@@ -145,10 +147,12 @@ mas "Pages", id: 409201541
 mas "Pandan", id: 1569600264
 mas "Perplexity", id: 6714467650
 mas "Pluralsight", id: 431748264
+mas "Postman Interceptor", id: 6460587883
 mas "Tailscale", id: 1475387142
 mas "Telephone", id: 406825478
 mas "Termius", id: 1176074088
 mas "TestFlight", id: 899247664
+mas "UPnP Analyzer", id: 1251327928
 mas "Windows App", id: 1295203466
 mas "WireGuard", id: 1451685025
 mas "Xcode", id: 497799835
@@ -159,4 +163,5 @@ vscode "github.vscode-pull-request-github"
 vscode "ms-vscode.cpptools"
 vscode "platformio.platformio-ide"
 vscode "streetsidesoftware.code-spell-checker"
+vscode "supermaven.supermaven"
 vscode "wakatime.vscode-wakatime"
